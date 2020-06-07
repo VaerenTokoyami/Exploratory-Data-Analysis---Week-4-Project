@@ -44,13 +44,33 @@ NEI <- readRDS(SourceDest1)
 
 ## Step 1-1 - Explore the Structure/Format of the Data
 
-## Step 1-2 - 
+print("What is SCC?")
+str(SCC)
+### So SCC is a 15 Variable data frame with 11717 observations (or rows), 
+### but that really isn't accurate when you assess each of the 15 variables- 
+### many of the variables have less than 100 levels...
+###
+###
+### Upon Closer review of the assignment prompt, this is simply an incredibly ugly dataset-
+### SCC is the mapping for the types of polutants, where as NEI is the polutant levels...
+### If the scientists organizing this dataset were datascientists, there'd have been closer to a dozen files
+### cross-referencing indexed values similar to how one would contruct a clean sql database...
 
-
+print("")
+print("What is NEI?")
+str(NEI)
+### So while different to SCC, NEI is a 6 variable data frame with nearly 6.5 million observations...
+### These observations appear to be the code for the observation locallity, the corresponding SCC pollutant 
+### type, whether the SCC were the primary or alternate polutant, the actual emission level, and the 
+### year of the measurement
 
 # Step 2 - Determine what type of visualization could best answer the question:
 
-
-
+## Based upon the structure of the data, and the first question as to whether over time, nationwide, 
+## has the PM2.5 decreased, we should begin by isolating the PM2.5 measurements over time- essentially 
+## what are the specific emission rates compared year to year. Since we have yet to grasp the range of data
+## across each year and over time, a boxplot is probably best in order to visualize the spread of the data over time
 
 # Step 3 - Create the visualization to best answer the 1st question:
+
+

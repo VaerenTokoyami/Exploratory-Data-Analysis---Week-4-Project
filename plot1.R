@@ -10,14 +10,28 @@
 
 ## Step 0-1 - Load the R Packages Required for this Assignment
 
-## Step 0-2 - Verify/Download the Source Data
+## Step 0-2 - Create Source Data Variables
+SourceURL <- "https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2FNEI_data.zip"
+SourceFileName <- "exdata_data_NEI_data.zip"
+SourceDest0 <- "Source_Classification_Code.rds"
+SourceDest1 <- "summarySCC_PM25.rds"
 
-## Step 0-3 - Verify/Unzip the Source Data
+## Step 0-3 - Verify/Download the Source Data
+if(!file.exists(SourceFileName)) {
+  download.file(SourceURL,SourceFileName,mode="wb")
+}
 
-## Step 0-4 - Read the Source Data
+## Step 0-4 - Verify/Unzip the Source Data
+if(!file.exists(SourceDest0&SourceDest1)) {
+  unzip(SourceFileName)
+}
 
+## Step 0-5 - Read the Source Data
+SCC <- readRDS(SourceDest0)
+NEI <- readRDS(SourceDest1)
 
-
+head(SCC)
+head(NEI)
 # Step 1 - Determine what parts of the available data is required to answer the question
 
 ## Step 1-0 - What is the Question???

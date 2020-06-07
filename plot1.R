@@ -26,7 +26,7 @@ if(!file.exists(SourceFileName)) {
 }
 
 ## Step 0-4 - Verify/Unzip the Source Data
-if(!file.exists(SourceDest0&SourceDest1)) {
+if(!file.exists(SourceDest0)) {
   unzip(SourceFileName)
 }
 
@@ -34,8 +34,6 @@ if(!file.exists(SourceDest0&SourceDest1)) {
 SCC <- readRDS(SourceDest0)
 NEI <- readRDS(SourceDest1)
 
-head(SCC)
-head(NEI)
 # Step 1 - Determine what parts of the available data is required to answer the question
 
 ## Step 1-0 - What is the Question???

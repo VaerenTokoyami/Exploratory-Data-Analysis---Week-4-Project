@@ -9,6 +9,10 @@
 # Step 0 - Prepare the Data
 
 ## Step 0-1 - Load the R Packages Required for this Assignment
+library(dplyr)
+library(ggplot2)
+library(scales)
+library(data.table)
 
 ## Step 0-2 - Create Source Data Variables
 SourceURL <- "https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2FNEI_data.zip"

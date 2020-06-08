@@ -74,22 +74,20 @@ str(NEI)
 # Step 3 - Create the visualization to best answer the 2nd question:
 
 ## Step 3 - 1 Isolate/subset NEI to FIPS data for Baltimore, MD
-
-#COMPLETE
-###YearlyEmissions <- NEI %>% group_by(year) %>% summarise(AnnualTotal=sum(Emissions))
+BaltimoreEmissions <- subset(NEI, fips == "24510")
+BaltimoreEmissionsAnnual <- BaltimoreEmissions %>% group_by(year) %>% summarise(AnnualTotal=sum(Emissions))
 
 ## Step 3 - 2 Establish the PNG File
 png('plot2.png')
 
 ## Step 3 - 3 Create the subsetted bar chart for Baltimore, MD
-#FIX
-###barplot(
-  YearlyEmissions$AnnualTotal/1000000, 
-  YearlyEmissions$year,
-  names.arg=YearlyEmissions$year, 
+barplot(
+  BaltimoreEmissionsAnnual$AnnualTotal/1000, 
+  BaltimoreEmissionsAnnual$year,
+  names.arg=BaltimoreEmissionsAnnual$year, 
   xlab="Total Annual Measurements",
-  ylab="Emissions (PM 2.5) in Millions of Tons",
-  main="Emissions (PM 2.5) per Year"
+  ylab="Emissions (PM 2.5) in Thousands of Tons",
+  main="City of Baltimore, MD Emissions (PM 2.5) per Year"
 )
 
 ## Step 3 - 4 Close the PNG File

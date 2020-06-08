@@ -64,11 +64,26 @@ str(NEI)
 ### year of the measurement
 
 # Step 2 - Determine what type of visualization could best answer the question:
-
+## First we need to merge the data frames, then extract/subset the data to only 
+## records that are tied to coal combustion sources, then we can plot by year just
+## like the previous questions
 
 # Step 3 - Create the visualization to best answer the 4th question:
 
-## Step 3 - 1 Prepare the Data
+## Step 3 - 1 Prepare the Data by mergine the dataframes, subsetting for coal values,
+## then cleaning the output table
+
+#### Merge the data frames
+pmCombined <- tbl_df(merge(NEI,SCC,by="SCC"))
+
+#### Subset the dat to only those records that records that are tied to coal combustion sources
+pmCombined <- mutate(pmCombined,coal=grepl("coal",pmCombined$Short.Name,ignore.case = TRUE))
+
+#### Subset the dataframe to the table needed to display the barchart
+pmCombinedCoal <- summarise(group_by(filter(pmCombined,coal==TRUE),year),sum(Emissions)/1000)
+
+#### Rename Columns and Convert Year to String
+colnames(pmCombinedCoal) <- c("Year","Emissions")
 
 ## Step 3 - 2 Establish the PNG File
 png('plot4.png')

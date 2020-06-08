@@ -67,10 +67,29 @@ str(NEI)
 # Step 2 - Determine what type of visualization could best answer the question:
 
 ## Based upon the structure of the data, and the first question as to whether over time, nationwide, 
-## has the PM2.5 decreased, we should begin by isolating the PM2.5 measurements over time- essentially 
-## what are the specific emission rates compared year to year. Since we have yet to grasp the range of data
-## across each year and over time, a boxplot is probably best in order to visualize the spread of the data over time
+## has the PM2.5 decreased, we should begin by totalling the yearly PM2.5 measurements - and then
+## what are the comparisons of combined emission rates compared year to year. This could best be 
+## achieved via a bar or line graph - I've always prefered Bar graphs for this type of comparison
 
 # Step 3 - Create the visualization to best answer the 1st question:
 
+## Step 3 - 1 Create The summarization table for the yearly Emmission totals
+YearlyEmissions <- NEI %>% group_by(year) %>% summarise(AnnualTotal=sum(Emissions))
 
+## Step 3 - 2 Establish the PNG File
+png('plot1.png')
+
+## Step 3 - 3 Create the summarized bar chart for the answer
+barplot(
+  YearlyEmissions$AnnualTotal/1000000, 
+  YearlyEmissions$year,
+  names.arg=YearlyEmissions$year, 
+  xlab="Total Annual Measurements",
+  ylab="Emissions (PM 2.5) in Millions of Tons",
+  main="Emissions (PM 2.5) per Year"
+)
+
+## Step 3 - 4 Close the PNG File
+dev.off()
+
+#### END OF PLOT 1 ####

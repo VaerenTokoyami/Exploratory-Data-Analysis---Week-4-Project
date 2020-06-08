@@ -71,24 +71,18 @@ str(NEI)
 ### FIX - Insert Explanation on how to answer 3rd question
 
 # Step 3 - Create the visualization to best answer the 3rd question:
-
-## Step 3 - 1 Isolate/subset NEI to FIPS data for Baltimore, MD
+library(ggplot2)
+## Step 3 - 1 Isolate/subset NEI to FIPS data for Baltimore, MD; group by type & year; rename columns
 BaltimoreEmissions <- subset(NEI, fips == "24510")
-BaltimoreEmissionsAnnual <- BaltimoreEmissions %>% group_by(year) %>% summarise(AnnualTotal=sum(Emissions))
-
+BaltCount <- summarize(group_by(BaltimoreEmissions,type,year),sum(Emissions))
+colnames(BaltCount) <- c("Type","Year","Emissions")
+BaltCount$Year <- as.character(BaltCount$Year)
+print(BaltCount)
 ## Step 3 - 2 Establish the PNG File
-png('plot2.png')
+png('plot3.png')
 
 ## Step 3 - 3 Create the subsetted bar chart for Baltimore, MD
-
-#FIX barplot(
-  BaltimoreEmissionsAnnual$AnnualTotal/1000, 
-  BaltimoreEmissionsAnnual$year,
-  names.arg=BaltimoreEmissionsAnnual$year, 
-  xlab="Total Annual Measurements",
-  ylab="Emissions (PM 2.5) in Thousands of Tons",
-  main="City of Baltimore, MD Emissions (PM 2.5) per Year"
-)
+qplot(Year, data=BaltCount, geom="bar", weight=Emissions, facets=.~Type, fill=Type, main="Emissions by Type for the City of Baltimore, MD (as measured by PM 2.5)", ylab="Emissions (PM 2.5)")
 
 ## Step 3 - 4 Close the PNG File
 dev.off()

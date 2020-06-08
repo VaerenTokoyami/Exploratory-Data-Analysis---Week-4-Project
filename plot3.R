@@ -67,11 +67,11 @@ str(NEI)
 ### year of the measurement
 
 # Step 2 - Determine what type of visualization could best answer the question:
-
-### FIX - Insert Explanation on how to answer 3rd question
+## Essentially this visualization is a subsetted ggplot visualization with barcharts per year subdivided by Emission Type
 
 # Step 3 - Create the visualization to best answer the 3rd question:
 library(ggplot2)
+
 ## Step 3 - 1 Isolate/subset NEI to FIPS data for Baltimore, MD; group by type & year; rename columns
 BaltimoreEmissions <- subset(NEI, fips == "24510")
 BaltCount <- summarize(group_by(BaltimoreEmissions,type,year),sum(Emissions))

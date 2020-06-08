@@ -1,5 +1,5 @@
 # Exploratory Data Analysis- Week 4-Final Project
-## This is 2 of 6 of my responses to the questions posed by the week 4 project for the
+## This is 3 of 6 of my responses to the questions posed by the week 4 project for the
 ## Coursera/JHU Data Science Specialization Course 'Exploratory Data Analsysis'
 ## I am completing this course in June 2020 - The following represents my response to
 ## the questions posited in the week 4 assignment @ https://www.coursera.org/learn/exploratory-data-analysis/
@@ -38,9 +38,11 @@ NEI <- readRDS(SourceDest1)
 
 ## Step 1-0 - What is the Question???
 
-### Have total emissions from PM2.5 decreased in the Baltimore City, Maryland 
-### (fips == "24510") from 1999 to 2008? Use the base plotting system to 
-### make a plot answering this question.
+### Of the four types of sources indicated by the type 
+### (point, nonpoint, onroad, nonroad) variable, which of these four sources
+### have seen decreases in emissions from 1999–2008 for Baltimore City? 
+### Which have seen increases in emissions from 1999–2008? 
+### Use the ggplot2 plotting system to make a plot answer this question.
 
 ## Step 1-1 - Explore the Structure/Format of the Data
 
@@ -66,11 +68,9 @@ str(NEI)
 
 # Step 2 - Determine what type of visualization could best answer the question:
 
-## Based upon the structure of the data, and the question, this response should
-## subset the NEI data to the fips code for Baltimore, MD, then replicate the
-## bar plot similar to the response to the first question.
+### FIX - Insert Explanation on how to answer 3rd question
 
-# Step 3 - Create the visualization to best answer the 2nd question:
+# Step 3 - Create the visualization to best answer the 3rd question:
 
 ## Step 3 - 1 Isolate/subset NEI to FIPS data for Baltimore, MD
 BaltimoreEmissions <- subset(NEI, fips == "24510")
@@ -80,7 +80,8 @@ BaltimoreEmissionsAnnual <- BaltimoreEmissions %>% group_by(year) %>% summarise(
 png('plot2.png')
 
 ## Step 3 - 3 Create the subsetted bar chart for Baltimore, MD
-barplot(
+
+#FIX barplot(
   BaltimoreEmissionsAnnual$AnnualTotal/1000, 
   BaltimoreEmissionsAnnual$year,
   names.arg=BaltimoreEmissionsAnnual$year, 
@@ -92,4 +93,4 @@ barplot(
 ## Step 3 - 4 Close the PNG File
 dev.off()
 
-#### END OF PLOT 2 ####
+#### END OF PLOT 3 ####

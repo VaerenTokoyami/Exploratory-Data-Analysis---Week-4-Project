@@ -113,22 +113,38 @@ LAMobileEmissions <- summarise(group_by(LAMobileEmissions,year),sum(Emissions))
 #### Rename Columns and Convert Year to String
 colnames(LAMobileEmissions) <- c("Year","Emissions")
 
+#### Establish a joint range for the y-axis between the 2 datasets (Baltimore & LA)
+rng <- range(BaltimoreMobileEmissions$Emissions,LAMobileEmissions$Emissions,na.rm=TRUE)
 
 ## Step 3 - 2 Establish the PNG File
 png('plot6.png')
 
 ## Step 3 - 3 Create the plot
-#barplot(
-  BaltimoreMobileEmissionsTest$Emissions,
-  width=BaltimoreMobileEmissionsTest$Year,
+#### After some trial and error, I decided to keep it simple and stick with a base point and line plot due to time constraints
+par(mfrow=c(1,2),mar=c(4,4,2,4))
+plot(
+  BaltimoreMobileEmissions$Year,
+  BaltimoreMobileEmissions$Emissions,
+  type="b",
   xlab="Years",
-  ylab="Emissions (PM 2.5) in Thousands",
-  main="Motor Vehicle Emissions for the City of Baltimore, MD",
-  names.arg = BaltimoreMobileEmissionsTest$Year,
-  axisnames=TRUE
+  ylab="Annual Motor Vehicle Emissions (PM 2.5)",
+  main="Emissions for Baltimore,MD",
+  col='blue', 
+  pch=20,
+  ylim=rng
+)
+plot(LAMobileEmissions$Year,
+     LAMobileEmissions$Emissions,
+     type="b",
+     xlab="Years",
+     ylab="Annual Motor Vehicle Emissions (PM 2.5)",
+     main="Emissions for Los Angeles,CA",
+     col='red',
+     pch=20,
+     ylim=rng
 )
 
 ## Step 3 - 4 Close the PNG File
 dev.off()
 
-#### END OF PLOT 5 ####
+#### END OF PLOT 6 ####

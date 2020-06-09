@@ -103,7 +103,7 @@ barplot(
   BaltimoreMobileEmissionsTest$Emissions,
   width=BaltimoreMobileEmissionsTest$Year,
   xlab="Years",
-  ylab="Emissions (PM 2.5) in Thousands",
+  ylab="Emissions (PM 2.5)",
   main="Motor Vehicle Emissions for the City of Baltimore, MD",
   names.arg = BaltimoreMobileEmissionsTest$Year,
   axisnames=TRUE

@@ -89,7 +89,16 @@ colnames(pmCombinedCoal) <- c("Year","Emissions")
 png('plot4.png')
 
 ## Step 3 - 3 Create the plot
-
+barplot(
+  pmCombinedCoal$Emissions,
+  width=pmCombinedCoal$Year,
+  xlab="Years",
+  ylab="Emissions (PM 2.5) in Thousands",
+  main="Change over Time in Emissions originating from
+  Coal Combustion Sources per EPA Data",
+  names.arg = pmCombinedCoal$Year,
+  axisnames=TRUE
+)
 
 ## Step 3 - 4 Close the PNG File
 dev.off()

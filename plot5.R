@@ -77,27 +77,35 @@ str(NEI)
 #### Merge the data frames
 pmCombined <- tbl_df(merge(NEI,SCC,by="SCC"))
 
-#### Subset the dat to only those records that records that are tied to coal combustion sources
-pmCombined <- mutate(pmCombined,coal=grepl("coal",pmCombined$Short.Name,ignore.case = TRUE))
+#### Subset the data to search for "mobile - on-road" from the EI.Sector Column, 
+#### which according to the dataset documentation is the actual source data values
+#### for motor vehicle PM 2.5 polution- we do this by tagging all mobile-on-road
+#### records with a boolean TRUE value in a new column 'mobile'
+pmCombined <- mutate(pmCombined,mobile=grepl("mobile - on-road",pmCombined$EI.Sector,ignore.case = TRUE))
 
-#### Subset the dataframe to the table needed to display the barchart
-pmCombinedCoal <- summarise(group_by(filter(pmCombined,coal==TRUE),year),sum(Emissions)/1000)
+#### Now that we have tagged the motor vehicle data, we can filter to the FIPS for the City of Baltimore
+BaltimoreMobileEmissions <- filter(pmCombined,fips=="24510")
+
+#### Now that we have filtered for the FIPS for the City of Baltimore, we can filter to motor vehicle data previosly tagged
+BaltimoreMobileEmissions <- filter(BaltimoreMobileEmissions,mobile==TRUE)
+
+#### Now that we've applied all filters, we can create the summary table for Baltimore City Motor Vehicle Emission Data
+BaltimoreMobileEmissionsTest <- summarise(group_by(BaltimoreMobileEmissions,year),sum(Emissions))
 
 #### Rename Columns and Convert Year to String
-colnames(pmCombinedCoal) <- c("Year","Emissions")
+colnames(BaltimoreMobileEmissionsTest) <- c("Year","Emissions")
 
 ## Step 3 - 2 Establish the PNG File
 png('plot5.png')
 
 ## Step 3 - 3 Create the plot
 barplot(
-  pmCombinedCoal$Emissions,
-  width=pmCombinedCoal$Year,
+  BaltimoreMobileEmissionsTest$Emissions,
+  width=BaltimoreMobileEmissionsTest$Year,
   xlab="Years",
   ylab="Emissions (PM 2.5) in Thousands",
-  main="Change over Time in Emissions originating from
-  Coal Combustion Sources per EPA Data",
-  names.arg = pmCombinedCoal$Year,
+  main="Motor Vehicle Emissions for the City of Baltimore, MD",
+  names.arg = BaltimoreMobileEmissionsTest$Year,
   axisnames=TRUE
 )
 
